@@ -6,12 +6,11 @@ use std::sync::RwLock;
 
 async fn get_line(path: web::Path<(u32,)>, data: web::Data<RwLock<FileReader>>) -> HttpResponse {
     let number = path.0 as usize;
-    let mut file_reader = data.write().unwrap();
-    if number >= file_reader.positions.len() {
+    if number >= data.read().unwrap().positions.len() {
         HttpResponse::PayloadTooLarge().finish()
     } else {
         let mut buffer = Vec::new();
-        file_reader.read_line(number, &mut buffer);
+        data.write().unwrap().read_line(number, &mut buffer);
         HttpResponse::Ok().body(format!("{}", String::from_utf8(buffer).unwrap()))
     }
 }
