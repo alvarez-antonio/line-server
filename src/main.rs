@@ -30,6 +30,7 @@ impl FileReader {
             current_position += count;
             positions.push(current_position);
         }
+        print!("Number of lines {}\n", positions.len());
         FileReader { reader, positions }
     }
 
@@ -41,12 +42,12 @@ impl FileReader {
     }
 }
 
-async fn get_line(path: web::Path<(u32,)>, data: web::Data<RwLock<FileReader>>) -> HttpResponse {
+async fn get_line(path: web::Path<(usize,)>, data: web::Data<RwLock<FileReader>>) -> HttpResponse {
 
     // Get line_number from request path
     let number = path.0 as usize;
 
-    // Check if it's indexed
+    // Check if it's indexed (Should lines be index from 0 or 1? Hmmmm...)
     if number >= data.read().unwrap().positions.len() {
         HttpResponse::PayloadTooLarge().finish()
     } else {
