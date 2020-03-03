@@ -100,7 +100,7 @@ The REST API was implemented using Actix https://actix.rs/ because it was easy t
 
 ## How long did you spend on this exercise? If you had unlimited more time to spend on this, how would you spend it and how would you prioritize each item?
 
-About 8h. The first hour just researching a bit and putting the solution together in my head. About 5h of development time, where much was dealing with the Rust borrow checker (worth it). The last 2h spent load testing and writing the docs and scripts.
+About 9h. The first hour just researching a bit and putting the solution together in my head. About 4h of development time, where much was dealing with the Rust borrow checker (worth it). The last 3h spent load testing and writing the docs and scripts.
 
 The time spent would depend on the actual use case of the system. I'd first try to really understand what it's used for and see if all the constraints remain true in order to solve the problem. If the constraints didn't change I'd probably try to figure out a better representation of the file than the .txt, even if it meant duplicating the data it would probably be worth it, since storage space is usually cheap. If performance was still an issue I'd look at trying to create some sort of distributed system that would at startup split the file (if large enough) between different machines and each would serve the lines that match their chunk. Overall, I'd first question the constraints of the problem and the usage and then act on that. I would also like to spend time trying to figure out the concurrent connections issues and errors.
 
